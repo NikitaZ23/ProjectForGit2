@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: Nikita.Zachvatov
+      failOnError: true
+      comment: "Create hibernate_sequence, needed by envers audit"
+      changes:
+        - createSequence:
+            sequenceName: hibernate_sequence_pr
+            incrementBy: 1
+            cycle: false
+            cacheSize: 1
+            minValue: 1
+            startValue: 1
+        - createTable:
+            tableName: profiles
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: UUID
+              - column:
+                  name: name
+                  type: varchar(50)
+              - column:
+                  name: surname
+                  type: varchar(50)
+              - column:
+                  name: sex
+                  type: varchar(50)
+              - column:
+                  name: birthday
+                  type: date
+              - column:
+                  name: sign_up_date
+                  type: datetime
+              - column:
+                  name: last_visit_date
+                  type: datetime
+        - addPrimaryKey:
+            columnNames: id
+            tableName: profiles
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: uuid
+            indexName: idx_uuid
+            schemaName: public
+            tableName: profiles
+            unique: true

@@ -78,7 +78,7 @@ public class ProfileControllerTests {
     @Test
     @SneakyThrows
     @DisplayName("Проверка создания профиля")
-    public void createThemeTest() {
+    public void createProfileTest() {
         CreateProfileRequests request = new CreateProfileRequests("Alex", "Zar", "Male", LocalDate.now());
 
         Profile profile = new Profile("Alex", "Zar", "Male", LocalDate.now());
@@ -98,7 +98,7 @@ public class ProfileControllerTests {
     @Test
     @SneakyThrows
     @DisplayName("Проверка обновления профиля")
-    public void updateThemeTest() {
+    public void updateProfileTest() {
         Profile profile = new Profile("Alex", "Zar", "Male", LocalDate.now());
         Profile profile2 = new Profile("Alex2", "Zar2", "Male", LocalDate.now());
 
@@ -118,20 +118,22 @@ public class ProfileControllerTests {
     @Test
     @SneakyThrows
     @DisplayName("Проверка удаления профиля")
-    public void deleteThemeTest() {
+    public void deleteProfileTest() {
         Profile profile = new Profile("Alex", "Zar", "Male", LocalDate.now());
 
         Mockito.when(service.findProfile(Mockito.any())).thenReturn(Optional.of(profile));
 
         mockMvc.perform(
-                        delete("/profiles/7207d531-0e01-4cd0-ba0a-02f7c0c8fb2d"))
+                        delete("/profiles/" + profile.getUuid().toString()))
                 .andExpect(status().isNoContent());
+
+        System.out.println(profile);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Получение профиля с ошибкой")
-    public void getThemeTestExceptions() {
+    public void getProfileTestExceptions() {
         CreateProfileRequests request = new CreateProfileRequests("Alex", "Zar", "Male", LocalDate.now());
 
         Mockito.when(service.findProfile(Mockito.any())).thenReturn(Optional.empty());
@@ -150,7 +152,7 @@ public class ProfileControllerTests {
     @Test
     @SneakyThrows
     @DisplayName("Проверка обновления профиля с ошибкой")
-    public void updateThemeTestExceptions() {
+    public void updateProfileTestExceptions() {
         Mockito.when(service.findProfile(Mockito.any())).thenReturn(Optional.empty());
         Mockito.when(service.updateProfile(Mockito.any(), Mockito.any())).thenReturn(Optional.empty());
 
@@ -167,7 +169,7 @@ public class ProfileControllerTests {
     @Test
     @SneakyThrows
     @DisplayName("Проверка удаления профиля с ошибкой")
-    public void deleteThemeTestExceptions() {
+    public void deleteProfileTestExceptions() {
         Mockito.when(service.findProfile(Mockito.any())).thenReturn(Optional.empty());
 
         Throwable thrown = catchThrowable(() -> mockMvc.perform(

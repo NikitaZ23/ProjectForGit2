@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>projectForGit</artifactId>
+    <artifactId>projectForGit2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>projectForGit2</name>
     <description>projectForGit2</description>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
